@@ -5,6 +5,7 @@ import AuthSocialButtons from "../AuthSocialButtons/AuthSocialButtons";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import { Button } from "@mui/material";
 import user from "../../assets/images/user.png";
+import axios from "axios";
 
 const AuthForm = ({ variant, setVariant }) => {
   const [imageData, setImageData] = useState(null);
@@ -31,11 +32,12 @@ const AuthForm = ({ variant, setVariant }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
-    const image = data.image[0];
+    const image = imageData;
     const name = data.name;
     const email = data.email;
     const password = data.password;
@@ -46,6 +48,21 @@ const AuthForm = ({ variant, setVariant }) => {
       image,
     };
     console.log(formData);
+    if (variant === "REGISTER") {
+      // axios
+      //   .post("api/v1/auth/sign_up", data)
+      //   .then((res) => {
+      //     console.log(res);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err.message);
+      //   });
+      console.log("hello register");
+      reset();
+    } else {
+      console.log("hello login");
+      reset();
+    }
   };
 
   const socialAction = (action) => {};
@@ -97,7 +114,6 @@ const AuthForm = ({ variant, setVariant }) => {
                   name="image"
                   required
                   onChange={convertImage}
-                  {...register("image")}
                   className="w-full p-3 text-white font-medium border-2 rounded-md"
                 />
               </div>

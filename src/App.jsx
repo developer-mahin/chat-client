@@ -1,13 +1,15 @@
 import { Route, Routes } from "react-router-dom";
-import Auth from "./pages/Auth/Auth";
 import Message from "./pages/Message/Message";
-import "./App.css"
+import "./App.css";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Message />}></Route>
-      <Route path="/auth" element={<Auth />}></Route>
+      <Route path="/login" element={<Login />}></Route>
+      <Route path="/register" element={<Register />}></Route>
     </Routes>
   );
 }
