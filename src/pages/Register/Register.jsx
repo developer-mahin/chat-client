@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AuthSocialButtons from "../../components/AuthSocialButtons/AuthSocialButtons";
 import { Button } from "@mui/material";
 import Input from "../../components/Input/Input";
@@ -7,14 +7,12 @@ import { useState } from "react";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import user from "../../assets/images/user.png";
 import logo from "../../assets/images/logo.png";
-import axios from "axios";
-import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { singUpUser } from "../../redux/authSlice/authSlice";
 
 const Register = () => {
   const [imageData, setImageData] = useState(null);
   const [addImage, setAddImage] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const convertImage = (e) => {
     const image = e.target.files[0];
@@ -27,16 +25,17 @@ const Register = () => {
       render.readAsDataURL(image);
     }
   };
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.auth);
+  console.log(isLoading);
 
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
-    setLoading(true);
     const image = addImage;
     const name = data.name;
     const email = data.email;
@@ -47,19 +46,8 @@ const Register = () => {
     formData.append("email", email);
     formData.append("name", name);
     formData.append("password", password);
-
-    axios
-      .post("http://localhost:5000/api/v1/auth/sign_up", formData)
-      .then((res) => {
-        toast(res.data.message);
-        navigate("/login");
-        setLoading(false);
-        reset();
-      })
-      .catch((err) => {
-        toast.error(err.message);
-        setLoading(false);
-      });
+    // dispatch function
+    dispatch(singUpUser(formData));
   };
 
   const socialAction = () => {};
@@ -132,7 +120,7 @@ const Register = () => {
                 fontWeight: "600",
               }}
             >
-              {loading ? "Loading..." : "Register"}
+              {isLoading ? "Loading..." : "Register"}
             </Button>
           </div>
         </form>

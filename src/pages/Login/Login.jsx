@@ -5,26 +5,21 @@ import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import logo from "../../assets/images/logo.png";
-import axios from "axios";
-import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { signInUser } from "../../redux/authSlice/authSlice";
 
 const Login = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
 
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.auth);
+
   const onSubmit = (data) => {
-    axios
-      .post("http://localhost:5000/api/v1/auth/sign_in", data)
-      .then((res) => {
-        toast(res.data.message);
-      })
-      .catch((err) => {
-        toast.error(err.message);
-      });
+    dispatch(signInUser(data));
   };
   const socialAction = () => {};
 
@@ -69,7 +64,7 @@ const Login = () => {
                 fontWeight: "600",
               }}
             >
-              Login
+              {isLoading ? "Lading..." : "Login"}
             </Button>
           </div>
         </form>
