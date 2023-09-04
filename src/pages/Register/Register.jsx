@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthSocialButtons from "../../components/AuthSocialButtons/AuthSocialButtons";
 import { Button } from "@mui/material";
 import Input from "../../components/Input/Input";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import user from "../../assets/images/user.png";
 import logo from "../../assets/images/logo.png";
@@ -13,6 +13,7 @@ import { singUpUser } from "../../redux/authSlice/authSlice";
 const Register = () => {
   const [imageData, setImageData] = useState(null);
   const [addImage, setAddImage] = useState(null);
+  const navigate = useNavigate();
 
   const convertImage = (e) => {
     const image = e.target.files[0];
@@ -26,8 +27,7 @@ const Register = () => {
     }
   };
   const dispatch = useDispatch();
-  const { isLoading } = useSelector((state) => state.auth);
-  console.log(isLoading);
+  const { isLoading, authenticate } = useSelector((state) => state.auth);
 
   const {
     register,
@@ -49,6 +49,12 @@ const Register = () => {
     // dispatch function
     dispatch(singUpUser(formData));
   };
+
+  useEffect(() => {
+    if (authenticate) {
+      navigate("/");
+    }
+  }, [authenticate, navigate]);
 
   const socialAction = () => {};
 

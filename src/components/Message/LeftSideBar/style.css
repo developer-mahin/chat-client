@@ -1,0 +1,7 @@
+.left-sidebar {
+  overflow-y: scroll;
+  height: 100vh;
+  &::-webkit-scrollbar {
+    overflow: hidden;
+  }
+}

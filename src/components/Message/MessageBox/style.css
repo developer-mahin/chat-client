@@ -1,0 +1,72 @@
+.message__box {
+  height: 95vh;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    overflow: hidden;
+  }
+}
+
+.my__image__message {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 8px;
+}
+
+.message__show {
+  padding: 0px 20px;
+  margin-top: 20px;
+}
+.my__message {
+  float: right;
+  margin: 10px 0px;
+  cursor: pointer;
+}
+
+.my__text {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  flex-direction: column;
+  width: 370px;
+}
+.message__text {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.363);
+  padding: 10px;
+  border-radius: 5px;
+}
+.my__time {
+  text-align: end;
+  padding: 5px 0px;
+  color: #aaaaaa;
+}
+
+.fd__message {
+  float: left;
+  margin: 10px 0px;
+  cursor: pointer;
+}
+.fd__image__message {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+.fd__time {
+  padding: 5px 0px;
+  color: #aaaaaa;
+}
+.fd__text {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 370px;
+}
+
+.message__text img {
+  width: 270px;
+  height: 270px;
+  object-fit: cover;
+  border-radius: 5px;
+  cursor: pointer;
+}

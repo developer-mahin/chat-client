@@ -2,13 +2,16 @@ import AuthSocialButtons from "../../components/AuthSocialButtons/AuthSocialButt
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import Input from "../../components/Input/Input";
 import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import logo from "../../assets/images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { signInUser } from "../../redux/authSlice/authSlice";
+import { useEffect } from "react";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -16,12 +19,19 @@ const Login = () => {
   } = useForm();
 
   const dispatch = useDispatch();
-  const { isLoading } = useSelector((state) => state.auth);
+
+  const { isLoading, authenticate } = useSelector((state) => state.auth);
 
   const onSubmit = (data) => {
     dispatch(signInUser(data));
   };
   const socialAction = () => {};
+
+  useEffect(() => {
+    if (authenticate) {
+      navigate("/");
+    }
+  }, [authenticate, navigate]);
 
   return (
     <div className="h-[100vh] flex items-center justify-center px-4 lg:py-0 py-20 ">

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
+import decodedToken from "jwt-decode";
 
 export const singUpUser = createAsyncThunk(
   "authSlice/singUpUser",
@@ -34,11 +35,20 @@ export const signInUser = createAsyncThunk(
 
 const initialState = {
   isLoading: false,
+  authenticate: false,
   data: {},
   message: "",
   error: "",
   token: "",
 };
+
+const token = localStorage.getItem("access_token");
+if (token) {
+  const decoded = decodedToken(token);
+  initialState.data = decoded;
+  initialState.authenticate = true;
+  initialState.isLoading = false;
+}
 
 const authSlice = createSlice({
   name: "authSlice",
@@ -70,12 +80,14 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.message = payload.message;
       state.token = payload.token;
-      state.user = payload.user;
+      state.data = payload.user;
+      state.authenticate = true;
       toast(state.message);
       localStorage.setItem("access_token", state.token);
     });
     builder.addCase(signInUser.rejected, (state, { payload }) => {
       state.isLoading = false;
+      state.authenticate = false;
       state.error = payload.error;
     });
   },
