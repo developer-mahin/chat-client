@@ -1,0 +1,7 @@
+.right__side__bar {
+  height: 90vh;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    overflow: hidden;
+  }
+}

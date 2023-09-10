@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import {  useState } from "react";
+import {  useSelector } from "react-redux";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -8,7 +8,7 @@ import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import ActiveFriend from "./ActiveFriend";
 import FriendsList from "./FriendsList";
-import "./style.css"
+import "./style.css";
 
 const options = ["None", "Atria", "Callisto", "Dione"];
 
@@ -16,6 +16,7 @@ const ITEM_HEIGHT = 48;
 
 const LeftSideBar = () => {
   const { data } = useSelector((state) => state.auth);
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -24,6 +25,8 @@ const LeftSideBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+
 
   return (
     <div className="left-sidebar">
