@@ -4,7 +4,7 @@ import "./style.css";
 import { useState } from "react";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 
-const RightSideBar = ({ setToggleRightSide, toggleRightSide }) => {
+const RightSideBar = ({ toggleRightSide, currentFriend }) => {
   const { data } = useSelector((state) => state.auth);
   const [showSharedMedia, setShowSharedMedia] = useState(false);
 
@@ -13,18 +13,21 @@ const RightSideBar = ({ setToggleRightSide, toggleRightSide }) => {
       {toggleRightSide && (
         <div className="mt-10 right__side__bar">
           <div className="flex items-center justify-center">
-            <img
-              src={`http://localhost:5000/public/images/users/${data.image}`}
-              className="w-[80px] h-[80px] rounded-full object-cover"
-              alt=""
-            />
+            <div className=" relative w-[80px] h-[80px]">
+              <img
+                src={`http://localhost:5000/public/images/users/${currentFriend.image}`}
+                className="w-[80px] h-[80px] rounded-full object-cover"
+                alt=""
+              />
+              <div className="w-3 h-3 rounded-full bg-green-500 absolute right-2 bottom-2"></div>
+            </div>
           </div>
           <div>
             <p className="text-xl font-semibold text-center text-white mt-2">
               Active
             </p>
             <p className="text-xl font-semibold text-center text-white">
-              {data.name}
+              {currentFriend.name}
             </p>
           </div>
 

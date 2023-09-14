@@ -1,5 +1,5 @@
-import {  useState } from "react";
-import {  useSelector } from "react-redux";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -14,7 +14,7 @@ const options = ["None", "Atria", "Callisto", "Dione"];
 
 const ITEM_HEIGHT = 48;
 
-const LeftSideBar = () => {
+const LeftSideBar = ({ setCurrentFriend, currentFriend }) => {
   const { data } = useSelector((state) => state.auth);
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -25,8 +25,6 @@ const LeftSideBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-
 
   return (
     <div className="left-sidebar">
@@ -149,11 +147,14 @@ const LeftSideBar = () => {
           <SearchIcon className="absolute left-4 text-white top-[14px]" />
         </div>
       </div>
-      <div className="mt-5">
+      <div className="mt-5 pr-3">
         <ActiveFriend />
       </div>
       <div className="mt-5">
-        <FriendsList />
+        <FriendsList
+          setCurrentFriend={setCurrentFriend}
+          currentFriend={currentFriend}
+        />
       </div>
     </div>
   );

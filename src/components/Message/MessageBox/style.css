@@ -29,7 +29,14 @@
   flex-direction: column;
   /* width: 370px; */
 }
-.message__text {
+.my__message__text {
+  color: #fff;
+  background-color: #025144;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.fd__message__text {
   color: #fff;
   background-color: rgba(0, 0, 0, 0.363);
   padding: 10px;

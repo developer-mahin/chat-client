@@ -2,25 +2,25 @@ import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRen
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import { AiFillGift } from "react-icons/ai";
-import { BsFillMicFill } from "react-icons/bs";
 import { IoSendSharp } from "react-icons/io5";
 import { useState } from "react";
 import { emojis } from "../../../data/emijis";
 import "./style.css";
 
-const MessageBottom = ({ setToggleRightSide, toggleRightSide }) => {
-  const [inputValue, setInputValue] = useState("");
+const MessageBottom = ({
+  toggleRightSide,
+  inputHandler,
+  newMessage,
+  handleMessageSent,
+  setNewMessage,
+}) => {
   const [showEmoji, setShowEmoji] = useState(false);
-  // const [emojiPicker, setEmojiPicker] = useState("");
+  const [emojiPicker, setEmojiPicker] = useState([]);
 
   const handleEmojiPicker = (value) => {
-    console.log(value);
-    let arr = [];
-    for (let i = 0; i < value.length; i++) {
-      const element = value[i];
-      arr.push(element);
-    }
-    console.log(arr);
+    setEmojiPicker(value);
+    setEmojiPicker([...emojiPicker, value]);
+    setNewMessage(emojiPicker, newMessage);
   };
 
   return (
@@ -36,7 +36,7 @@ const MessageBottom = ({ setToggleRightSide, toggleRightSide }) => {
             <ControlPointIcon className="text-white text-2xl mx-2 cursor-pointer" />
           </button>
           <div>
-            <input type="file" id="pic" className="hidden" />
+            <input type="file" id="pic" accept="image/*" className="hidden" />
             <label
               data-te-toggle="tooltip"
               data-te-placement="top"
@@ -58,12 +58,17 @@ const MessageBottom = ({ setToggleRightSide, toggleRightSide }) => {
           </button>
         </div>
 
-        <form className="flex items-center gap-2 flex-1">
+        <form
+          onSubmit={handleMessageSent}
+          className="flex items-center gap-2 flex-1"
+        >
           <div className="flex-1 relative ">
             <input
               type="text"
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={inputHandler}
               placeholder="Aa"
+              value={newMessage}
+              // onKeyUp={handleMessageSent}
               className="w-full py-2.5 px-4 rounded-full bg-[#1b262b] placeholder:font-bold text-white focus:outline-none"
             />
             <p
@@ -93,19 +98,19 @@ const MessageBottom = ({ setToggleRightSide, toggleRightSide }) => {
               </div>
             )}
           </div>
+
           <div>
-            {inputValue.length ? (
+            {newMessage.length ? (
               <button>
                 <IoSendSharp className="text-white text-2xl mx-2 cursor-pointer" />
               </button>
             ) : (
-              <button>
-                <BsFillMicFill className="text-white text-2xl mx-2 cursor-pointer" />
+              <button type="submit" className="text-2xl cursor-pointer">
+                ❤️
               </button>
             )}
           </div>
         </form>
-        <div className="text-2xl cursor-pointer">❤️</div>
       </div>
     </div>
   );

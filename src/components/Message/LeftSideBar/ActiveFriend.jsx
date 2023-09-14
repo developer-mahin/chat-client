@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 const ActiveFriend = () => {
   const { data } = useSelector((state) => state.auth);
@@ -12,11 +11,7 @@ const ActiveFriend = () => {
             alt=""
             className="w-full h-full rounded-full object-cover border-2 border-gray-400"
           />
-          <div className="absolute -top-[5px] right-0 ">
-            <FiberManualRecordIcon
-              style={{ color: "#66CC33", fontSize: "16px" }}
-            />
-          </div>
+          <div className="absolute w-3 h-3 bg-green-500 rounded-full right-0 top-1 "></div>
         </div>
         <div className="w-[50px] h-[50px] relative">
           <img
@@ -24,11 +19,7 @@ const ActiveFriend = () => {
             alt=""
             className="w-full h-full rounded-full object-cover border-2 border-gray-400"
           />
-          <div className="absolute -top-[5px] right-0 ">
-            <FiberManualRecordIcon
-              style={{ color: "#66CC33", fontSize: "16px" }}
-            />
-          </div>
+          <div className="absolute w-3 h-3 bg-green-500 rounded-full right-0 top-1 "></div>
         </div>
         <div className="w-[50px] h-[50px] relative">
           <img
@@ -36,11 +27,7 @@ const ActiveFriend = () => {
             alt=""
             className="w-full h-full rounded-full object-cover border-2 border-gray-400"
           />
-          <div className="absolute -top-[5px] right-0 ">
-            <FiberManualRecordIcon
-              style={{ color: "#66CC33", fontSize: "16px" }}
-            />
-          </div>
+          <div className="absolute w-3 h-3 bg-green-500 rounded-full right-0 top-1 "></div>
         </div>
         <div className="w-[50px] h-[50px] relative">
           <img
@@ -48,11 +35,7 @@ const ActiveFriend = () => {
             alt=""
             className="w-full h-full rounded-full object-cover border-2 border-gray-400"
           />
-          <div className="absolute -top-[5px] right-0 ">
-            <FiberManualRecordIcon
-              style={{ color: "#66CC33", fontSize: "16px" }}
-            />
-          </div>
+          <div className="absolute w-3 h-3 bg-green-500 rounded-full right-0 top-1 "></div>
         </div>
         <div className="w-[50px] h-[50px] relative">
           <img
@@ -60,11 +43,7 @@ const ActiveFriend = () => {
             alt=""
             className="w-full h-full rounded-full object-cover border-2 border-gray-400"
           />
-          <div className="absolute -top-[5px] right-0 ">
-            <FiberManualRecordIcon
-              style={{ color: "#66CC33", fontSize: "16px" }}
-            />
-          </div>
+          <div className="absolute w-3 h-3 bg-green-500 rounded-full right-0 top-1 "></div>
         </div>
       </div>
     </div>
