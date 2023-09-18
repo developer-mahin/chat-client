@@ -7,11 +7,10 @@ const MessageContent = ({
   currentFriend,
   messageData,
   scrollRef,
+  
 }) => {
   const { data } = useSelector((state) => state.auth);
   const { image, name } = currentFriend;
-  // const { messageData } = useSelector((state) => state.message);
-  console.log(messageData);
 
   return (
     <>

@@ -1,11 +1,11 @@
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
-import { AiFillGift } from "react-icons/ai";
+import { AiFillCloseCircle, AiFillGift } from "react-icons/ai";
 import { IoSendSharp } from "react-icons/io5";
-import { useState } from "react";
 import { emojis } from "../../../data/emijis";
 import "./style.css";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 
 const MessageBottom = ({
   toggleRightSide,
@@ -13,14 +13,17 @@ const MessageBottom = ({
   newMessage,
   handleMessageSent,
   setNewMessage,
+  setShowEmoji,
+  showEmoji,
+  getImageData,
+  imageConvert,
+  setImageConvert,
+  handleImageSent,
+  image,
+  setImage,
 }) => {
-  const [showEmoji, setShowEmoji] = useState(false);
-  const [emojiPicker, setEmojiPicker] = useState([]);
-
   const handleEmojiPicker = (value) => {
-    setEmojiPicker(value);
-    setEmojiPicker([...emojiPicker, value]);
-    setNewMessage(emojiPicker, newMessage);
+    setNewMessage(`${newMessage}` + value);
   };
 
   return (
@@ -36,7 +39,14 @@ const MessageBottom = ({
             <ControlPointIcon className="text-white text-2xl mx-2 cursor-pointer" />
           </button>
           <div>
-            <input type="file" id="pic" accept="image/*" className="hidden" />
+            <input
+              type="file"
+              onChange={getImageData}
+              id="pic"
+              accept="image/*"
+              className="hidden"
+            />
+
             <label
               data-te-toggle="tooltip"
               data-te-placement="top"
@@ -63,14 +73,37 @@ const MessageBottom = ({
           className="flex items-center gap-2 flex-1"
         >
           <div className="flex-1 relative ">
-            <input
-              type="text"
-              onChange={inputHandler}
-              placeholder="Aa"
-              value={newMessage}
-              // onKeyUp={handleMessageSent}
-              className="w-full py-2.5 px-4 rounded-full bg-[#1b262b] placeholder:font-bold text-white focus:outline-none"
-            />
+            <div className={`${imageConvert && "relative"}`}>
+              <input
+                type="text"
+                onChange={inputHandler}
+                placeholder="Aa"
+                value={newMessage}
+                className="w-full py-2.5 px-4 rounded-full bg-[#1b262b] placeholder:font-bold text-white focus:outline-none"
+              />
+              {imageConvert && (
+                <div className="absolute -top-[140px] py-2 px-4 rounded-lg bg-[#1b262b]">
+                  <AiFillCloseCircle
+                    onClick={() => {
+                      setImageConvert(null);
+                      setImage(null);
+                    }}
+                    className="text-white text-2xl float-right cursor-pointer"
+                  />
+                  <div>
+                    <PhotoProvider>
+                      <PhotoView src={imageConvert}>
+                        <img
+                          src={imageConvert}
+                          className="w-[80px] h-[80px] object-cover cursor-pointer"
+                          alt=""
+                        />
+                      </PhotoView>
+                    </PhotoProvider>
+                  </div>
+                </div>
+              )}
+            </div>
             <p
               onClick={() => setShowEmoji(!showEmoji)}
               className="text-white text-2xl mx-2 cursor-pointer absolute right-1 top-1"
@@ -88,7 +121,7 @@ const MessageBottom = ({
               >
                 {emojis.map((e, i) => (
                   <div
-                    onClick={(e) => handleEmojiPicker(e.target.innerText)}
+                    onClick={() => handleEmojiPicker(e)}
                     className="text-2xl cursor-pointer"
                     key={i}
                   >
@@ -101,16 +134,32 @@ const MessageBottom = ({
 
           <div>
             {newMessage.length ? (
-              <button>
+              <button className={`${image !== null ? "hidden" : "block"}`}>
                 <IoSendSharp className="text-white text-2xl mx-2 cursor-pointer" />
               </button>
             ) : (
-              <button type="submit" className="text-2xl cursor-pointer">
+              <button
+                type="submit"
+                className={`${
+                  image !== null ? "hidden" : "block"
+                } text-2xl cursor-pointer`}
+              >
                 ❤️
               </button>
             )}
           </div>
         </form>
+        <div>
+          <button
+            type="submit"
+            className={`${image === null ? "hidden" : "block"}`}
+          >
+            <IoSendSharp
+              onClick={handleImageSent}
+              className="text-white text-2xl mx-2 cursor-pointer"
+            />
+          </button>
+        </div>
       </div>
     </div>
   );

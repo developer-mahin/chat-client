@@ -3,6 +3,8 @@ import MessageTop from "./MessageTop";
 import "./style.css";
 
 const MessageBox = ({
+  setShowEmoji,
+  showEmoji,
   setToggleRightSide,
   toggleRightSide,
   currentFriend,
@@ -20,6 +22,8 @@ const MessageBox = ({
         toggleRightSide={toggleRightSide}
       />
       <MessageContent
+        setShowEmoji={setShowEmoji}
+        showEmoji={showEmoji}
         scrollRef={scrollRef}
         messageData={messageData}
         currentFriend={currentFriend}

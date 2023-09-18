@@ -15,6 +15,11 @@ const Message = () => {
   const [currentFriend, setCurrentFriend] = useState(null);
   const [newMessage, setNewMessage] = useState("");
   const { data } = useSelector((state) => state.auth);
+  const [showEmoji, setShowEmoji] = useState(false);
+  const [imageConvert, setImageConvert] = useState("");
+  const [image, setImage] = useState(null);
+
+  console.log(newMessage);
 
   const inputHandler = (e) => {
     setNewMessage(e.target.value);
@@ -34,6 +39,7 @@ const Message = () => {
   useEffect(() => {
     if (messageLoading) {
       setNewMessage("");
+      setShowEmoji(false);
     }
   }, [messageLoading]);
 
@@ -51,7 +57,6 @@ const Message = () => {
         { token }
       )
       .then((res) => {
-        console.log(res.data);
         setMessageData(res.data.message);
       });
   }, [currentFriend?._id, token, messageLoading, dispatch]);
@@ -59,6 +64,48 @@ const Message = () => {
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messageData]);
+
+  const getImageData = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const convert = e.target.result;
+        setImageConvert(convert);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleImageSent = () => {
+    const newImageName = Date.now() + image.name;
+
+    let formData = new FormData();
+    formData.append("image", image);
+
+    const messageData = {
+      senderName: data.name,
+      receiverId: currentFriend._id,
+      formData,
+    };
+
+    console.log(formData);
+
+    axios
+      .post("http://localhost:5000/api/v1/message/send_img_message", {
+        ...messageData,
+        token,
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
+  };
+
+  useEffect(() => {
+    setImageConvert(null);
+  }, [currentFriend]);
 
   return (
     <div className="grid grid-cols-12  css__container">
@@ -83,11 +130,19 @@ const Message = () => {
               />
               <div className="py-2 px-4">
                 <MessageBottom
+                  setImageConvert={setImageConvert}
+                  handleImageSent={handleImageSent}
+                  imageConvert={imageConvert}
+                  getImageData={getImageData}
+                  setShowEmoji={setShowEmoji}
+                  showEmoji={showEmoji}
                   handleMessageSent={handleMessageSent}
                   setNewMessage={setNewMessage}
                   inputHandler={inputHandler}
                   newMessage={newMessage}
                   toggleRightSide={toggleRightSide}
+                  image={image}
+                  setImage={setImage}
                 />
               </div>
             </div>
