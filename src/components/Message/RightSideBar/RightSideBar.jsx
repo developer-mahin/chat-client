@@ -4,7 +4,7 @@ import "./style.css";
 import { useState } from "react";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 
-const RightSideBar = ({ toggleRightSide, currentFriend }) => {
+const RightSideBar = ({ toggleRightSide, currentFriend, activeUsers }) => {
   const { data } = useSelector((state) => state.auth);
   const [showSharedMedia, setShowSharedMedia] = useState(false);
 
@@ -19,13 +19,25 @@ const RightSideBar = ({ toggleRightSide, currentFriend }) => {
                 className="w-[80px] h-[80px] rounded-full object-cover"
                 alt=""
               />
-              <div className="w-3 h-3 rounded-full bg-green-500 absolute right-2 bottom-2"></div>
+              {activeUsers &&
+              activeUsers.length > 0 &&
+              activeUsers.some((u) => u.userId === currentFriend._id) ? (
+                <div className="w-3 h-3 rounded-full bg-green-500 absolute right-2 bottom-2"></div>
+              ) : (
+                ""
+              )}
             </div>
           </div>
           <div>
-            <p className="text-xl font-semibold text-center text-white mt-2">
-              Active
-            </p>
+            {activeUsers &&
+            activeUsers.length > 0 &&
+            activeUsers.some((u) => u.userId === currentFriend._id) ? (
+              <p className="text-xl font-semibold text-center text-green-500 mt-2">
+                Active
+              </p>
+            ) : (
+              ""
+            )}
             <p className="text-xl font-semibold text-center text-white">
               {currentFriend.name}
             </p>

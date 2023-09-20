@@ -29,15 +29,48 @@ export const getMessage = createAsyncThunk("message/getMessage", async (id) => {
   }
 });
 
+export const sentImageMessage = createAsyncThunk(
+  "message/sentImageMessage",
+  async (data) => {
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/v1/message/send_img_message",
+        { ...data, token }
+      );
+      console.log(res.data);
+      return res.data;
+    } catch (error) {
+      return error;
+    }
+  }
+);
+
 const initialState = {
   isLoading: false,
   messageData: [],
   error: "",
 };
 
+export const socketMessage = createAsyncThunk(
+  "message/socketMessage",
+  (data) => {
+
+    
+
+
+  }
+);
+
 const messageSlice = createSlice({
   name: "message",
   initialState,
+  reducers: {
+    addSocketMessage: (initialState, { payload }) => {
+      console.log(initialState);
+
+      state.messageData = [...state.messageData, payload.message];
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(sendMessage.pending, (state) => {
       state.isLoading = true;
@@ -65,7 +98,26 @@ const messageSlice = createSlice({
       state.isLoading = false;
       state.error = payload.error;
     });
+    /**
+     *
+     *
+     */
+    builder.addCase(sentImageMessage.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(sentImageMessage.fulfilled, (state, { payload }) => {
+      state.isLoading = false;
+      state.messageData = payload.message;
+    });
+    builder.addCase(sentImageMessage.rejected, (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload.error;
+    });
+    builder.addCase(socketMessage, (state, { payload }) => {
+      state.messageData = [...state.messageData, payload.message];
+    });
   },
 });
 
+export const { addSocketMessage } = messageSlice.actions;
 export default messageSlice.reducer;

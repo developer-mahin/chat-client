@@ -7,7 +7,6 @@ const MessageContent = ({
   currentFriend,
   messageData,
   scrollRef,
-  
 }) => {
   const { data } = useSelector((state) => state.auth);
   const { image, name } = currentFriend;
@@ -61,7 +60,21 @@ const MessageContent = ({
                         }  flex justify-end flex-col items-end`}
                       >
                         <div className="my__message__text">
-                          <p>{m.message?.text}</p>
+                          <div>
+                            {m.message?.text ? (
+                              <p>{m.message?.text}</p>
+                            ) : (
+                              <PhotoProvider>
+                                <PhotoView src={m.message?.image}>
+                                  <img
+                                    src={m.message?.image}
+                                    className="object-cover"
+                                    alt=""
+                                  />
+                                </PhotoView>
+                              </PhotoProvider>
+                            )}
+                          </div>
                         </div>
                         <div className="my__time">2 September 2023</div>
                       </div>
@@ -89,7 +102,21 @@ const MessageContent = ({
                         }  flex justify-start flex-col items-start`}
                       >
                         <div className="fd__message__text">
-                          <p>{m.message?.text}</p>
+                          <div>
+                            {m.message?.text ? (
+                              <p>{m.message?.text}</p>
+                            ) : (
+                              <PhotoProvider>
+                                <PhotoView src={m.message?.image}>
+                                  <img
+                                    src={m.message?.image}
+                                    className="object-cover"
+                                    alt=""
+                                  />
+                                </PhotoView>
+                              </PhotoProvider>
+                            )}
+                          </div>
                         </div>
                         <div className="fd__time">2 September 2023</div>
                       </div>

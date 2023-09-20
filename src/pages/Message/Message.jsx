@@ -6,20 +6,56 @@ import RightSideBar from "../../components/Message/RightSideBar/RightSideBar";
 import logo from "../../assets/images/logo.png";
 import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getMessage, sendMessage } from "../../redux/messageSlice/messageSlice";
+import {
+  addSocketMessage,
+  getMessage,
+  sendMessage,
+  sentImageMessage,
+} from "../../redux/messageSlice/messageSlice";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { io } from "socket.io-client";
 
 const Message = () => {
   const [toggleRightSide, setToggleRightSide] = useState(false);
   const scrollRef = useRef();
+  const socket = useRef();
   const [currentFriend, setCurrentFriend] = useState(null);
   const [newMessage, setNewMessage] = useState("");
   const { data } = useSelector((state) => state.auth);
   const [showEmoji, setShowEmoji] = useState(false);
   const [imageConvert, setImageConvert] = useState("");
   const [image, setImage] = useState(null);
+  const navigate = useNavigate();
+  const [activeUsers, setActiveUser] = useState([]);
+  const [socketMessage, setSocketMessage] = useState(null);
 
-  console.log(newMessage);
+  useEffect(() => {}, [(socket.current = io("ws://localhost:8000"))]);
+  useEffect(() => {
+    socket.current.emit("addUser", data.id, data);
+    socket.current.on("getMessage", (data) => {
+      setSocketMessage(data);
+    });
+  }, []);
+  useEffect(() => {
+    if (socketMessage && currentFriend) {
+      if (
+        socketMessage.senderId === currentFriend._id &&
+        socketMessage.receiverId === data.id
+      ) {
+        dispatch(addSocketMessage(socketMessage));
+      }
+    }
+    setSocketMessage("")
+  }, [socketMessage]);
+
+
+  useEffect(() => {
+    socket.current.on("getUsers", (users) => {
+      const filterUser = users.filter((user) => user.userId !== data.id);
+      setActiveUser(filterUser);
+    });
+  }, []);
 
   const inputHandler = (e) => {
     setNewMessage(e.target.value);
@@ -33,6 +69,18 @@ const Message = () => {
       receiverId: currentFriend._id,
       message: newMessage ? newMessage : "❤️",
     };
+
+    socket.current.emit("sendMessage", {
+      senderId: data.id,
+      senderName: data.name,
+      receiverId: currentFriend._id,
+      time: new Date(),
+      message: {
+        text: newMessage ? newMessage : "❤️",
+        image: "",
+      },
+    });
+
     //action dispatch
     dispatch(sendMessage(messageData));
   };
@@ -49,6 +97,11 @@ const Message = () => {
   // }, [currentFriend?._id, dispatch]);
 
   const token = localStorage.getItem("access_token");
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token]);
   const [messageData, setMessageData] = useState([]);
   useEffect(() => {
     axios
@@ -78,30 +131,28 @@ const Message = () => {
       reader.readAsDataURL(file);
     }
   };
-
-  const handleImageSent = () => {
-    const newImageName = Date.now() + image.name;
-
-    let formData = new FormData();
+  const handleImageSent = async () => {
+    const formData = new FormData();
     formData.append("image", image);
 
-    const messageData = {
-      senderName: data.name,
-      receiverId: currentFriend._id,
-      formData,
-    };
+    const url = `https://api.imgbb.com/1/upload?key=6172cdc3d7968fb2194fbc4fc29a6a67`;
 
-    console.log(formData);
+    const res = await axios.post(url, formData);
+    setImageConvert("");
+    if (res.data.success) {
+      const messageData = {
+        senderName: data.name,
+        receiverId: currentFriend._id,
+        image: res.data.data.display_url,
+      };
 
-    axios
-      .post("http://localhost:5000/api/v1/message/send_img_message", {
-        ...messageData,
-        token,
-      })
-      .then((res) => {
-        console.log(res.data);
-      });
+      await dispatch(sentImageMessage(messageData));
+    }
   };
+
+  useEffect(() => {
+    setImage(null);
+  }, [messageLoading]);
 
   useEffect(() => {
     setImageConvert(null);
@@ -113,6 +164,7 @@ const Message = () => {
         <LeftSideBar
           setCurrentFriend={setCurrentFriend}
           currentFriend={currentFriend}
+          activeUsers={activeUsers}
         />
       </div>
       <div className="col-span-9">
@@ -122,6 +174,7 @@ const Message = () => {
               className={`${toggleRightSide ? "col-span-8" : "col-span-12"}`}
             >
               <MessageBox
+                activeUsers={activeUsers}
                 scrollRef={scrollRef}
                 messageData={messageData}
                 currentFriend={currentFriend}
@@ -150,6 +203,7 @@ const Message = () => {
               className={` ${toggleRightSide ? "block col-span-4" : "hidden"}`}
             >
               <RightSideBar
+                activeUsers={activeUsers}
                 currentFriend={currentFriend}
                 toggleRightSide={toggleRightSide}
               />
