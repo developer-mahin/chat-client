@@ -10,6 +10,7 @@ const MessageBox = ({
   currentFriend,
   messageData,
   scrollRef,
+  typingMessage,
   activeUsers,
 }) => {
   return (
@@ -18,6 +19,7 @@ const MessageBox = ({
       style={{ boxShadow: "0px 0px 20px -15px #ddd" }}
     >
       <MessageTop
+        typingMessage={typingMessage}
         activeUsers={activeUsers}
         currentFriend={currentFriend}
         setToggleRightSide={setToggleRightSide}

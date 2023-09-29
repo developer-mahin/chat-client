@@ -21,10 +21,9 @@ const MessageBottom = ({
   handleImageSent,
   image,
   setImage,
+  handleEmojiPicker,
 }) => {
-  const handleEmojiPicker = (value) => {
-    setNewMessage(`${newMessage}` + value);
-  };
+
 
   return (
     <div className="">

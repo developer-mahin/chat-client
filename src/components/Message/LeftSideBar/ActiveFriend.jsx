@@ -1,17 +1,22 @@
-const ActiveFriend = ({ setCurrentFriend, user }) => {
-
+const ActiveFriend = ({ setCurrentFriend, user, setResentFriend }) => {
   return (
     <div>
       <div className="flex items-center justify-between">
         <div
-          onClick={() =>
+          onClick={() => {
             setCurrentFriend({
               _id: user.userInfo.id,
               email: user.userInfo.email,
               name: user.userInfo.name,
               image: user.userInfo.image,
-            })
-          }
+            });
+            setResentFriend({
+              _id: user.userInfo.id,
+              email: user.userInfo.email,
+              name: user.userInfo.name,
+              image: user.userInfo.image,
+            });
+          }}
           className="w-[50px] h-[50px] relative cursor-pointer"
         >
           <img

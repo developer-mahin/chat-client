@@ -14,9 +14,14 @@ const options = ["None", "Atria", "Callisto", "Dione"];
 
 const ITEM_HEIGHT = 48;
 
-const LeftSideBar = ({ setCurrentFriend, currentFriend, activeUsers }) => {
+const LeftSideBar = ({
+  setCurrentFriend,
+  currentFriend,
+  activeUsers,
+  setResentFriend,
+  users,
+}) => {
   const { data } = useSelector((state) => state.auth);
-
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -153,16 +158,24 @@ const LeftSideBar = ({ setCurrentFriend, currentFriend, activeUsers }) => {
               <ActiveFriend
                 key={i}
                 user={user}
+                setResentFriend={setResentFriend}
                 setCurrentFriend={setCurrentFriend}
               />
             ))
           : ""}
       </div>
       <div className="mt-5">
-        <FriendsList
-          setCurrentFriend={setCurrentFriend}
-          currentFriend={currentFriend}
-        />
+        {users.users && users.users.length > 0
+          ? users.users.map((userInfo, i) => (
+              <FriendsList
+                key={i}
+                userInfo={userInfo}
+                setResentFriend={setResentFriend}
+                setCurrentFriend={setCurrentFriend}
+                currentFriend={currentFriend}
+              />
+            ))
+          : ""}
       </div>
     </div>
   );

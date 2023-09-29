@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import IconButton from "@mui/material/IconButton";
 import PendingSharpIcon from "@mui/icons-material/PendingSharp";
 import CallIcon from "@mui/icons-material/Call";
@@ -9,9 +8,8 @@ const MessageTop = ({
   toggleRightSide,
   currentFriend,
   activeUsers,
+  typingMessage,
 }) => {
-  const { data } = useSelector((state) => state.auth);
-
   return (
     <div className="px-4 flex items-center justify-between border-b-2 border-gray-700 sticky top-0 bg-[#1f2c32] z-[999]">
       <div>
@@ -34,6 +32,13 @@ const MessageTop = ({
             <p className="font-bold text-white capitalize">
               {currentFriend.name}
             </p>
+            {typingMessage &&
+            typingMessage.message !== "" &&
+            typingMessage.senderId === currentFriend._id ? (
+              <p className="text-white text-semibold">typing...</p>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

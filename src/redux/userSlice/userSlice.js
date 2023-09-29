@@ -9,6 +9,7 @@ export const getAllUser = createAsyncThunk(
         "http://localhost:5000/api/v1/user/all_user",
         { token }
       );
+
       return res.data;
     } catch (error) {
       return error;
