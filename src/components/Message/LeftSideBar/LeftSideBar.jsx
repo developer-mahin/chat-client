@@ -10,10 +10,6 @@ import ActiveFriend from "./ActiveFriend";
 import FriendsList from "./FriendsList";
 import "./style.css";
 
-const options = ["None", "Atria", "Callisto", "Dione"];
-
-const ITEM_HEIGHT = 48;
-
 const LeftSideBar = ({
   setCurrentFriend,
   currentFriend,
@@ -23,12 +19,27 @@ const LeftSideBar = ({
 }) => {
   const { data } = useSelector((state) => state.auth);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElCreate, setAnchorElCreate] = useState(null);
   const open = Boolean(anchorEl);
+  const create = Boolean(anchorElCreate);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleClickCreate = (event) => {
+    setAnchorElCreate(event.currentTarget);
+  };
+
+  const handleCloseCreate = () => {
+    setAnchorElCreate(null);
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
   };
 
   return (
@@ -37,14 +48,14 @@ const LeftSideBar = ({
         <div className="py-5 flex items-center gap-1">
           <div className="">
             <img
-              src={`http://localhost:5000/public/images/users/${data.image}`}
+              src={`http://localhost:5000/public/images/users/${data?.image}`}
               alt=""
               className="w-[70px] h-[70px] rounded-full object-cover"
             />
           </div>
           <div>
             <p className="text-lg font-bold text-white capitalize">
-              {data.name}
+              {data?.name}
             </p>
           </div>
         </div>
@@ -77,30 +88,23 @@ const LeftSideBar = ({
               onClose={handleClose}
               PaperProps={{
                 style: {
-                  maxHeight: ITEM_HEIGHT * 4.5,
                   width: "20ch",
                 },
               }}
             >
-              {options.map((option) => (
-                <MenuItem
-                  key={option}
-                  selected={option === "Pyxis"}
-                  onClick={handleClose}
-                >
-                  {option}
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleClose}>Logout</MenuItem>
+              <MenuItem onClick={handleClose}>Logout</MenuItem>
+              <MenuItem onClick={handleClose}>Logout</MenuItem>
             </Menu>
           </div>
+
           <div>
             <IconButton
-              aria-label="more"
-              id="long-button"
-              aria-controls={open ? "long-menu" : undefined}
-              aria-expanded={open ? "true" : undefined}
+              id="demo-positioned-button"
+              aria-controls={create ? "demo-positioned-menu" : undefined}
               aria-haspopup="true"
-              onClick={handleClick}
+              aria-expanded={create ? "true" : undefined}
+              onClick={handleClickCreate}
               sx={{
                 color: "#fff",
                 background: "#00000085",
@@ -111,30 +115,29 @@ const LeftSideBar = ({
             >
               <BorderColorOutlinedIcon style={{ fontSize: "16px" }} />
             </IconButton>
+
             <Menu
-              id="long-menu"
-              MenuListProps={{
-                "aria-labelledby": "long-button",
-              }}
-              anchorEl={anchorEl}
-              open={open}
+              id="demo-positioned-menu"
+              aria-labelledby="demo-positioned-button"
+              anchorEl={anchorElCreate}
+              open={create}
               onClose={handleClose}
               PaperProps={{
                 style: {
-                  maxHeight: ITEM_HEIGHT * 4.5,
                   width: "20ch",
                 },
               }}
             >
-              {options.map((option) => (
-                <MenuItem
-                  key={option}
-                  selected={option === "Pyxis"}
-                  onClick={handleClose}
-                >
-                  {option}
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseCreate}>Profile</MenuItem>
+              <MenuItem onClick={handleCloseCreate}>My account</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleLogout();
+                  handleCloseCreate();
+                }}
+              >
+                Logout
+              </MenuItem>
             </Menu>
           </div>
         </div>
@@ -173,6 +176,7 @@ const LeftSideBar = ({
                 setResentFriend={setResentFriend}
                 setCurrentFriend={setCurrentFriend}
                 currentFriend={currentFriend}
+                activeUsers={activeUsers}
               />
             ))
           : ""}

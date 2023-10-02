@@ -11,6 +11,7 @@ import { useEffect } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem("access_token");
 
   const {
     register,
@@ -28,10 +29,10 @@ const Login = () => {
   const socialAction = () => {};
 
   useEffect(() => {
-    if (authenticate) {
+    if (authenticate && token) {
       navigate("/");
     }
-  }, [authenticate, navigate]);
+  }, [authenticate, navigate, token]);
 
   return (
     <div className="h-[100vh] flex items-center justify-center px-4 lg:py-0 py-20 ">

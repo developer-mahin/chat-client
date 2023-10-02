@@ -34,6 +34,22 @@ export const seenMessage = createAsyncThunk(
   }
 );
 
+export const updatedDeliveredStatus = createAsyncThunk(
+  "message/updatedDeliveredStatus",
+  async (data) => {
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/v1/message/delivered_message",
+        { ...data, token }
+      );
+      console.log(res.data);
+      return res.data;
+    } catch (error) {
+      return error;
+    }
+  }
+);
+
 export const getMessage = createAsyncThunk("message/getMessage", async (id) => {
   try {
     const res = await axios.post(

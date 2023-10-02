@@ -11,6 +11,7 @@ import {
   seenMessage,
   sendMessage,
   sentImageMessage,
+  updatedDeliveredStatus,
 } from "../../redux/messageSlice/messageSlice";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -45,7 +46,7 @@ const Message = () => {
     currentMessage,
   } = useSelector((state) => state.message);
   const { data: userInfo } = useSelector((state) => state.users);
-  const token = localStorage.getItem("access_token");
+  const token = localStorage.getItem("access_token") || "";
   const [messageData, setMessageData] = useState([]);
 
   /* 
@@ -65,8 +66,6 @@ const Message = () => {
     });
   }, []);
 
-  console.log("socketMessage", socketMessage);
-
   /**
    *
    * */
@@ -78,6 +77,7 @@ const Message = () => {
     ) {
       toast(`${socketMessage.senderName} send a new message`);
       notificationSoundPlay();
+      dispatch(updatedDeliveredStatus(currentMessage));
     }
   }, [socketMessage]);
 
@@ -173,6 +173,7 @@ const Message = () => {
           ) {
             setMessageData(socketMessage);
             dispatch(seenMessage(currentMessage));
+            socket.current.emit("messageSeen", currentMessage);
           }
         }
         setSocketMessage("");
@@ -185,6 +186,7 @@ const Message = () => {
     currentMessage,
     socketMessage,
     seenMessage,
+    socket,
   ]);
 
   // console.log(socketMessage);

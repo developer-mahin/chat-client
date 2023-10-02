@@ -14,6 +14,7 @@ const Register = () => {
   const [imageData, setImageData] = useState(null);
   const [addImage, setAddImage] = useState(null);
   const navigate = useNavigate();
+  const token = localStorage.getItem("access_token");
 
   const convertImage = (e) => {
     const image = e.target.files[0];
@@ -51,10 +52,10 @@ const Register = () => {
   };
 
   useEffect(() => {
-    if (authenticate) {
+    if (authenticate && token) {
       navigate("/");
     }
-  }, [authenticate, navigate]);
+  }, [authenticate, navigate, token]);
 
   const socialAction = () => {};
 

@@ -12,6 +12,7 @@ const FriendsList = ({
   currentFriend,
   setResentFriend,
   userInfo,
+  activeUsers,
 }) => {
   const { data: myInfo } = useSelector((state) => state.auth);
   const { friendInfo, messageInfo } = userInfo;
@@ -27,12 +28,19 @@ const FriendsList = ({
       } py-2 px-3 rounded cursor-pointer flex items-center justify-between gap-1 hover:bg-gray-900`}
     >
       <div className="flex items-center cursor-pointer gap-2">
-        <div className="">
+        <div className="relative">
           <img
             src={`http://localhost:5000/public/images/users/${friendInfo.image}`}
             alt=""
             className="w-[50px] h-[50px] rounded-full object-cover"
           />
+          {activeUsers &&
+          activeUsers.length > 0 &&
+          activeUsers.some((u) => u.userId === friendInfo._id) ? (
+            <div className="w-4 h-4 rounded-full bg-green-500 absolute right-0 bottom-0 border border-gray-50"></div>
+          ) : (
+            ""
+          )}
         </div>
 
         <div className="">
@@ -85,9 +93,9 @@ const FriendsList = ({
       <div className="">
         {myInfo.id === messageInfo?.senderId ? (
           <div className="">
-            {messageInfo.status === "unseen" ? (
+            {messageInfo?.status === "unseen" ? (
               <AiOutlineCheckCircle className="text-white text-lg" />
-            ) : messageInfo.status === "delivered" ? (
+            ) : messageInfo?.status === "delivered" ? (
               <AiFillCheckCircle className="text-white text-lg" />
             ) : (
               <img
