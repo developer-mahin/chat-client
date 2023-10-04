@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import LeftSideBar from "../../components/Message/LeftSideBar/LeftSideBar";
 import MessageBottom from "../../components/Message/MessageBox/MessageBottom";
 import MessageBox from "../../components/Message/MessageBox/MessageBox";
@@ -269,6 +269,19 @@ const Message = () => {
     }
   }, [messageSentSuccess, message, userInfo]);
 
+  const [ignore, forceUpdate] = useReducer((x) => x + 1, 0);
+  const handleLogout = () => {
+    localStorage.clear();
+    forceUpdate();
+    socket.current.emit("logout", data.id);
+  };
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token, navigate, ignore]);
+
   useEffect(() => {
     setImage(null);
   }, [messageLoading]);
@@ -283,12 +296,6 @@ const Message = () => {
       setShowEmoji(false);
     }
   }, [messageLoading]);
-
-  useEffect(() => {
-    if (!token) {
-      navigate("/login");
-    }
-  }, [token]);
 
   useEffect(() => {
     if (messageSentSuccess || socketMessage) {
@@ -306,6 +313,7 @@ const Message = () => {
           setCurrentFriend={setCurrentFriend}
           currentFriend={currentFriend}
           activeUsers={activeUsers}
+          handleLogout={handleLogout}
           socketMessage={socketMessage}
         />
       </div>

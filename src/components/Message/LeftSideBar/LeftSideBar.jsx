@@ -15,6 +15,7 @@ const LeftSideBar = ({
   currentFriend,
   activeUsers,
   setResentFriend,
+  handleLogout,
   users,
 }) => {
   const { data } = useSelector((state) => state.auth);
@@ -36,10 +37,6 @@ const LeftSideBar = ({
 
   const handleCloseCreate = () => {
     setAnchorElCreate(null);
-  };
-
-  const handleLogout = () => {
-    localStorage.clear();
   };
 
   return (
@@ -117,8 +114,10 @@ const LeftSideBar = ({
             </IconButton>
 
             <Menu
-              id="demo-positioned-menu"
-              aria-labelledby="demo-positioned-button"
+              id="long-menu"
+              MenuListProps={{
+                "aria-labelledby": "long-button",
+              }}
               anchorEl={anchorElCreate}
               open={create}
               onClose={handleClose}
