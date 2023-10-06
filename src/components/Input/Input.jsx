@@ -11,9 +11,9 @@ const Input = ({ type, label, register, errors, name }) => {
         variant="outlined"
         sx={{
           input: {
-            color: "#fff",
+            color: "var(--text-color)",
           },
-          label: { color: "#fff" },
+          label: { color: "var(--text-color)" },
         }}
         {...register(`${name}`, {
           required: true,

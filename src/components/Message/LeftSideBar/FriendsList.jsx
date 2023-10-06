@@ -24,8 +24,8 @@ const FriendsList = ({
         setResentFriend(friendInfo);
       }}
       className={`${
-        currentFriend === friendInfo ? "bg-[#0b0f11]" : ""
-      } py-2 px-3 rounded cursor-pointer flex items-center justify-between gap-1 hover:bg-gray-900`}
+        currentFriend === friendInfo ? "bg-[var(--active-color)]" : ""
+      } py-2 px-3 rounded cursor-pointer flex items-center justify-between gap-1 hover:bg-[var(--active-color)] hover_fd`}
     >
       <div className="flex items-center cursor-pointer gap-2">
         <div className="relative">
@@ -44,11 +44,13 @@ const FriendsList = ({
         </div>
 
         <div className="">
-          <p className="font-bold text-white capitalize">{friendInfo.name}</p>
+          <p className="font-bold text-[var(--text-color)] capitalize fd_name">
+            {friendInfo.name}
+          </p>
           <div className="flex items-center justify-between gap-2">
             <div className="">
               {messageInfo?.senderId === myInfo.id ? (
-                <span className="text-gray-400 flex items-center gap-1">
+                <span className="text-[var(--text-color)] flex items-center gap-1">
                   You{" "}
                   {messageInfo?.message.text ? (
                     <p className="text-[12px]">
@@ -62,7 +64,7 @@ const FriendsList = ({
                   )}
                 </span>
               ) : (
-                <div className="text-gray-400 flex items-center justify-between gap-[2px]">
+                <div className="text-[var(--text-color)] flex items-center justify-between gap-[2px]">
                   <div className="flex items-center gap-1">
                     <p className="">{friendInfo?.name}</p>
                     {messageInfo?.message.text ? (
@@ -94,9 +96,9 @@ const FriendsList = ({
         {myInfo.id === messageInfo?.senderId ? (
           <div className="">
             {messageInfo?.status === "unseen" ? (
-              <AiOutlineCheckCircle className="text-white text-lg" />
+              <AiOutlineCheckCircle className="text-[var(--text-color)] text-lg" />
             ) : messageInfo?.status === "delivered" ? (
-              <AiFillCheckCircle className="text-white text-lg" />
+              <AiFillCheckCircle className="text-[var(--text-color)] text-lg" />
             ) : (
               <img
                 src={`http://localhost:5000/public/images/users/${friendInfo.image}`}
@@ -112,7 +114,7 @@ const FriendsList = ({
                     className="w-[15px] h-[15px] rounded-full"
                     alt=""
                   /> */}
-            <div className="w-[15px] h-[15px] rounded-full bg-cyan-500"></div>
+            <div className="w-[15px] h-[15px] rounded-full bg-[var(--message-icon-color)]"></div>
           </div>
         )}
       </div>

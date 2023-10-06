@@ -23,8 +23,6 @@ const MessageBottom = ({
   setImage,
   handleEmojiPicker,
 }) => {
-
-
   return (
     <div className="">
       <div className="py-2 flex items-center justify-between gap-2">
@@ -35,7 +33,7 @@ const MessageBottom = ({
             data-te-ripple-color="light"
             title="Add Attachment"
           >
-            <ControlPointIcon className="text-white text-2xl mx-2 cursor-pointer" />
+            <ControlPointIcon className="text-[var(--text-color)] text-2xl mx-2 cursor-pointer" />
           </button>
           <div>
             <input
@@ -53,17 +51,17 @@ const MessageBottom = ({
               title="Add Image"
               htmlFor="pic"
             >
-              <AddPhotoAlternateIcon className="text-white text-2xl mx-2 cursor-pointer" />
+              <AddPhotoAlternateIcon className="text-[var(--text-color)] text-2xl mx-2 cursor-pointer" />
             </label>
           </div>
-          <DriveFileRenameOutlineOutlinedIcon className="text-white text-2xl mx-2 cursor-pointer" />
+          <DriveFileRenameOutlineOutlinedIcon className="text-[var(--text-color)] text-2xl mx-2 cursor-pointer" />
           <button
             data-te-toggle="tooltip"
             data-te-placement="top"
             data-te-ripple-color="light"
             title="Add Gift"
           >
-            <AiFillGift className="text-white text-2xl mx-2 cursor-pointer" />
+            <AiFillGift className="text-[var(--text-color)] text-2xl mx-2 cursor-pointer" />
           </button>
         </div>
 
@@ -78,16 +76,16 @@ const MessageBottom = ({
                 onChange={inputHandler}
                 placeholder="Aa"
                 value={newMessage}
-                className="w-full py-2.5 px-4 rounded-full bg-[#1b262b] placeholder:font-bold text-white focus:outline-none"
+                className="w-full py-2.5 px-4 rounded-full bg-[var(--bg-color)] border border-[var(--border-color)] placeholder:font-bold text-[var(--text-color)] focus:outline-none"
               />
               {imageConvert && (
-                <div className="absolute -top-[140px] py-2 px-4 rounded-lg bg-[#1b262b]">
+                <div className="absolute -top-[140px] py-2 px-4 rounded-lg bg-[var(--bg-color)]">
                   <AiFillCloseCircle
                     onClick={() => {
                       setImageConvert(null);
                       setImage(null);
                     }}
-                    className="text-white text-2xl float-right cursor-pointer"
+                    className="text-[var(--text-color)] text-2xl float-right cursor-pointer"
                   />
                   <div>
                     <PhotoProvider>
@@ -105,7 +103,7 @@ const MessageBottom = ({
             </div>
             <p
               onClick={() => setShowEmoji(!showEmoji)}
-              className="text-white text-2xl mx-2 cursor-pointer absolute right-1 top-1"
+              className="text-[var(--text-color)] text-2xl mx-2 cursor-pointer absolute right-1 top-1"
             >
               🙂
             </p>
@@ -114,7 +112,7 @@ const MessageBottom = ({
           <div>
             {showEmoji && (
               <div
-                className={`grid grid-cols-7 bg-gray-900 p-4 rounded-md emoji__wrapper ${
+                className={`grid grid-cols-7 bg-[var(--bg-color)] border border-[--border-color] p-4 rounded-md emoji__wrapper ${
                   !toggleRightSide ? "right-[100px]" : "right-[450px]"
                 }`}
               >
@@ -134,7 +132,7 @@ const MessageBottom = ({
           <div>
             {newMessage.length ? (
               <button className={`${image !== null ? "hidden" : "block"}`}>
-                <IoSendSharp className="text-white text-2xl mx-2 cursor-pointer" />
+                <IoSendSharp className="text-[var(--text-color)] text-2xl mx-2 cursor-pointer" />
               </button>
             ) : (
               <button
@@ -155,7 +153,7 @@ const MessageBottom = ({
           >
             <IoSendSharp
               onClick={handleImageSent}
-              className="text-white text-2xl mx-2 cursor-pointer"
+              className="text-[var(--text-color)] text-2xl mx-2 cursor-pointer"
             />
           </button>
         </div>

@@ -30,8 +30,10 @@
   /* width: 370px; */
 }
 .my__message__text {
-  color: #fff;
-  background-color: #025144;
+  /* color: #fff; */
+  /* background-color: #025144; */
+  background-color: var(--my-message-bg);
+  color: var(--my-message-color);
   padding: 10px;
   border-radius: 5px;
 }
@@ -46,15 +48,17 @@
 }
 
 .fd__message__text {
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.363);
+  /* color: #fff; */
+  /* background-color: rgba(0, 0, 0, 0.363); */
+  background-color: var(--fd-message-bg);
+  color: var(--fd-message-color);
   padding: 10px;
   border-radius: 5px;
 }
 .my__time {
   text-align: end;
   padding: 5px 0px;
-  color: #aaaaaa;
+  color: var(--text-color);
 }
 
 .fd__message {
@@ -69,7 +73,7 @@
 }
 .fd__time {
   padding: 5px 0px;
-  color: #aaaaaa;
+  color: var(--text-color);
 }
 .fd__text {
   display: flex;

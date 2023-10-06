@@ -22,9 +22,9 @@ const ActiveFriend = ({ setCurrentFriend, user, setResentFriend }) => {
           <img
             src={`http://localhost:5000/public/images/users/${user.userInfo.image}`}
             alt=""
-            className="w-full h-full rounded-full object-cover border-2 border-gray-400"
+            className="w-full h-full rounded-full object-cover border-2 border-[var(--border-color)]"
           />
-          <div className="absolute w-3 h-3 bg-green-500 rounded-full right-0 top-1 "></div>
+          <div className="absolute w-4 h-4 bg-[var(--active-icon-color)] rounded-full right-0 top-1 border border-[var(--border-color)]"></div>
         </div>
       </div>
     </div>

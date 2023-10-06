@@ -23,9 +23,13 @@ const MessageContent = ({
             />
           </div>
           <div className="text-center mt-1">
-            <p className="font-bold text-white capitalize">{name}</p>
-            <p className=" text-white capitalize">{name} is connected</p>
-            <p className=" text-white capitalize">3 days ago</p>
+            <p className="font-bold text-[var(--text-color)] capitalize">
+              {name}
+            </p>
+            <p className=" text-[var(--text-color)] capitalize">
+              {name} is connected
+            </p>
+            <p className=" text-[var(--text-color)] capitalize">3 days ago</p>
           </div>
         </div>
         {/**
@@ -126,7 +130,7 @@ const MessageContent = ({
               )
             ) : (
               <>
-                <h2 className="text-lg font-semibold text-white text-center mt-10">
+                <h2 className="text-lg font-semibold text-[var(--text-color)] text-center mt-10">
                   No Message Here Start you conversation
                 </h2>
               </>

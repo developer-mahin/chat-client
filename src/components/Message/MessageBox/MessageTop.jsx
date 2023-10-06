@@ -11,7 +11,7 @@ const MessageTop = ({
   typingMessage,
 }) => {
   return (
-    <div className="px-4 flex items-center justify-between border-b-2 border-gray-700 sticky top-0 bg-[#1f2c32] z-[999]">
+    <div className="px-4 flex items-center justify-between border-b-2 border-[var(--border-color)] sticky top-0 bg-[var(--bg-color)] z-[999]">
       <div>
         <div className="py-5 flex items-center gap-1">
           <div className="relative">
@@ -23,19 +23,21 @@ const MessageTop = ({
             {activeUsers &&
             activeUsers.length > 0 &&
             activeUsers.some((u) => u.userId === currentFriend._id) ? (
-              <div className="w-3 h-3 rounded-full bg-green-500 absolute right-0 bottom-0"></div>
+              <div className="w-4 h-4 border-[var(--border-color)] border rounded-full bg-[var(--active-icon-color)] absolute right-0 bottom-0"></div>
             ) : (
               ""
             )}
           </div>
           <div>
-            <p className="font-bold text-white capitalize">
+            <p className="font-bold text-[var(--text-color)] capitalize">
               {currentFriend.name}
             </p>
             {typingMessage &&
             typingMessage.message !== "" &&
             typingMessage.senderId === currentFriend._id ? (
-              <p className="text-white text-semibold">typing...</p>
+              <p className="text-[var(--text-color)] text-semibold">
+                typing...
+              </p>
             ) : (
               ""
             )}
@@ -48,10 +50,10 @@ const MessageTop = ({
             aria-label="more"
             id="long-button"
             sx={{
-              color: "#fff",
-              background: "#00000085",
+              color: "var(--icon-color)",
+              background: "var(--icon-bg-color)",
               "&:hover": {
-                background: "#00000040",
+                background: "var(--icon-bg-color)",
               },
             }}
           >
@@ -63,10 +65,10 @@ const MessageTop = ({
             aria-label="more"
             id="long-button"
             sx={{
-              color: "#fff",
-              background: "#00000085",
+              color: "var(--icon-color)",
+              background: "var(--icon-bg-color)",
               "&:hover": {
-                background: "#00000040",
+                background: "var(--icon-bg-color)",
               },
             }}
           >
@@ -79,10 +81,10 @@ const MessageTop = ({
             aria-label="more"
             id="long-button"
             sx={{
-              color: "#fff",
-              background: "#00000085",
+              color: "var(--icon-color)",
+              background: "var(--icon-bg-color)",
               "&:hover": {
-                background: "#00000040",
+                background: "var(--icon-bg-color)",
               },
             }}
           >

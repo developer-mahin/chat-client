@@ -114,7 +114,7 @@ const AuthForm = ({ variant, setVariant }) => {
                   name="image"
                   required
                   onChange={convertImage}
-                  className="w-full p-3 text-white font-medium border-2 rounded-md"
+                  className="w-full p-3 text-[var(--text-color)] font-medium border-2 rounded-md"
                 />
               </div>
             </div>
@@ -126,7 +126,7 @@ const AuthForm = ({ variant, setVariant }) => {
             type="submit"
             variant="contained"
             fullWidth
-            className="bg-gradient-to-r from-[#6976EF] to-[#35D4B9] rounded-md duration-200 transition-all text-white"
+            className="bg-gradient-to-r from-[#6976EF] to-[#35D4B9] rounded-md duration-200 transition-all text-[var(--text-color)]"
             sx={{
               py: "12px",
               fontSize: "18px",
@@ -156,7 +156,7 @@ const AuthForm = ({ variant, setVariant }) => {
         />
       </div>
 
-      <div className="flex items-center justify-center gap-2 text-[#fff]  mt-4">
+      <div className="flex items-center justify-center gap-2 text-[var(--text-color)]  mt-4">
         {variant === "LOGIN" ? "New to here?" : "Already have an account?"}
         <div onClick={toggleVariant} className="hover:underline cursor-pointer">
           {variant === "LOGIN" ? "Create an account" : "Login"}

@@ -303,10 +303,28 @@ const Message = () => {
     }
   }, [messageSentSuccess, setTypingMessage]);
 
+  const search = (e) => {
+    const getFriendsClass = document.getElementsByClassName("hover_fd");
+    const friendClassName = document.getElementsByClassName("fd_name");
+    for (
+      let i = 0;
+      i < getFriendsClass.length, i < friendClassName.length;
+      i++
+    ) {
+      let text = friendClassName[i].innerText.toLowerCase();
+      if (text.indexOf(e.target.value.toLowerCase()) > -1) {
+        getFriendsClass[i].style.display = "";
+      } else {
+        getFriendsClass[i].style.display = "none";
+      }
+    }
+  };
+
   return (
-    <div className="grid grid-cols-12  css__container">
-      <div className="col-span-3  border-[#1f2f36] shadow-xl ">
+    <div className="grid grid-cols-12 px-10 message theme">
+      <div className="col-span-3  border-[var(--border-color)] shadow-xl ">
         <LeftSideBar
+          search={search}
           users={users}
           messageSentSuccess={messageSentSuccess}
           setResentFriend={setResentFriend}
