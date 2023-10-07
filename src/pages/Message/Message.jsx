@@ -320,11 +320,27 @@ const Message = () => {
     }
   };
 
+  const [isChecked, setIsChecked] = useState(false);
+  const handleCheckboxChange = () => {
+    if (isChecked) {
+      localStorage.setItem("check", !isChecked);
+    } else {
+      localStorage.setItem("check", !isChecked);
+    }
+  };
+
+  const checkItem = JSON.parse(localStorage.getItem("check"));
+
   return (
-    <div className="grid grid-cols-12 px-10 message theme">
+    <div
+      className={`grid grid-cols-12 px-10 message ${checkItem ? "theme" : ""}`}
+    >
       <div className="col-span-3  border-[var(--border-color)] shadow-xl ">
         <LeftSideBar
           search={search}
+          isChecked={isChecked}
+          setIsChecked={setIsChecked}
+          handleCheckboxChange={handleCheckboxChange}
           users={users}
           messageSentSuccess={messageSentSuccess}
           setResentFriend={setResentFriend}
