@@ -60,7 +60,7 @@ const Register = () => {
   const socialAction = () => {};
 
   return (
-    <div className="px-4 lg:py-0 py-20">
+    <div className="px-4 lg:py-0 py-20 bg-[#1f2c32]">
       <div className="lg:bg-[#00000017] bg-[#0000006c] lg:px-10 px-5 lg:py-14 py-7 shadow-md rounded-lg md:w-[600px] mx-auto w-full">
         <div>
           <div className="flex items-center justify-center ]">

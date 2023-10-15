@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import "./style.css";
 import { PhotoProvider, PhotoView } from "react-photo-view";
+import moment from "moment";
 
 const MessageContent = ({
   toggleRightSide,
@@ -29,7 +30,12 @@ const MessageContent = ({
             <p className=" text-[var(--text-color)] capitalize">
               {name} is connected
             </p>
-            <p className=" text-[var(--text-color)] capitalize">3 days ago</p>
+            <p className=" text-[var(--text-color)] capitalize">
+              {currentFriend
+                && moment(currentFriend.createdAt).startOf("mini").fromNow()
+                // : moment(friendInfo.createdAt).startOf("mini").fromNow()}
+              }
+            </p>
           </div>
         </div>
         {/**
@@ -80,7 +86,13 @@ const MessageContent = ({
                             )}
                           </div>
                         </div>
-                        <div className="my__time">2 September 2023</div>
+                        <div className="my__time capitalize">
+                          {m
+                            ? moment(m.createdAt).startOf("mini").fromNow()
+                            : moment(friendInfo.createdAt)
+                                .startOf("mini")
+                                .fromNow()}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -122,7 +134,13 @@ const MessageContent = ({
                             )}
                           </div>
                         </div>
-                        <div className="fd__time">2 September 2023</div>
+                        <div className="fd__time capitalize">
+                          {m
+                            ? moment(m.createdAt).startOf("mini").fromNow()
+                            : moment(friendInfo.createdAt)
+                                .startOf("mini")
+                                .fromNow()}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -135,70 +153,6 @@ const MessageContent = ({
                 </h2>
               </>
             )}
-
-            {/* <div className="my__message">
-              <div className="my__image__message">
-                <div className="my__image">
-                  <img
-                    src={`http://localhost:5000/public/images/users/${data.image}`}
-                    alt=""
-                    className="w-[50px] h-[50px] rounded-full object-cover"
-                  />
-                </div>
-                <div
-                  className={`${
-                    !toggleRightSide ? "w-[900px]" : "w-[370px]"
-                  }  flex justify-end flex-col items-end`}
-                >
-                  <div className="message__text">
-                    <PhotoProvider>
-                      <PhotoView
-                        src={`http://localhost:5000/public/images/users/${data.image}`}
-                      >
-                        <img
-                          src={`http://localhost:5000/public/images/users/${data.image}`}
-                          className="object-cover cursor-pointer"
-                          alt=""
-                        />
-                      </PhotoView>
-                    </PhotoProvider>
-                  </div>
-                  <div className="my__time">2 September 2023</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="fd__message">
-              <div className="fd__image__message">
-                <div className="fd__image">
-                  <img
-                    src={`http://localhost:5000/public/images/users/${data.image}`}
-                    alt=""
-                    className="w-[50px] h-[50px] rounded-full object-cover"
-                  />
-                </div>
-                <div
-                  className={`${
-                    !toggleRightSide ? "w-[900px]" : "w-[370px]"
-                  }  flex justify-start flex-col items-start`}
-                >
-                  <div className="message__text">
-                    <PhotoProvider>
-                      <PhotoView
-                        src={`http://localhost:5000/public/images/users/${data.image}`}
-                      >
-                        <img
-                          src={`http://localhost:5000/public/images/users/${data.image}`}
-                          className="object-cover cursor-pointer"
-                          alt=""
-                        />
-                      </PhotoView>
-                    </PhotoProvider>
-                  </div>
-                  <div className="fd__time">2 September 2023</div>
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>

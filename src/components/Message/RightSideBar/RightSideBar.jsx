@@ -4,10 +4,14 @@ import "./style.css";
 import { useState } from "react";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 
-const RightSideBar = ({ toggleRightSide, currentFriend, activeUsers }) => {
+const RightSideBar = ({
+  toggleRightSide,
+  currentFriend,
+  activeUsers,
+  messageData,
+}) => {
   const { data } = useSelector((state) => state.auth);
   const [showSharedMedia, setShowSharedMedia] = useState(false);
-
   return (
     <>
       {toggleRightSide && (
@@ -79,149 +83,23 @@ const RightSideBar = ({ toggleRightSide, currentFriend, activeUsers }) => {
                 {showSharedMedia && (
                   <div className="mt-6">
                     <div className="grid grid-cols-2 gap-3">
-                      <PhotoProvider>
-                        <PhotoView
-                          src={`http://localhost:5000/public/images/users/${data.image}`}
-                        >
-                          <img
-                            src={`http://localhost:5000/public/images/users/${data.image}`}
-                            className="object-cover cursor-pointer"
-                            alt=""
-                          />
-                        </PhotoView>
-                      </PhotoProvider>
-                      <PhotoProvider>
-                        <PhotoView
-                          src={`http://localhost:5000/public/images/users/${data.image}`}
-                        >
-                          <img
-                            src={`http://localhost:5000/public/images/users/${data.image}`}
-                            className="object-cover cursor-pointer"
-                            alt=""
-                          />
-                        </PhotoView>
-                      </PhotoProvider>
-                      <PhotoProvider>
-                        <PhotoView
-                          src={`http://localhost:5000/public/images/users/${data.image}`}
-                        >
-                          <img
-                            src={`http://localhost:5000/public/images/users/${data.image}`}
-                            className="object-cover cursor-pointer"
-                            alt=""
-                          />
-                        </PhotoView>
-                      </PhotoProvider>
-                      <PhotoProvider>
-                        <PhotoView
-                          src={`http://localhost:5000/public/images/users/${data.image}`}
-                        >
-                          <img
-                            src={`http://localhost:5000/public/images/users/${data.image}`}
-                            className="object-cover cursor-pointer"
-                            alt=""
-                          />
-                        </PhotoView>
-                      </PhotoProvider>
-                      <PhotoProvider>
-                        <PhotoView
-                          src={`http://localhost:5000/public/images/users/${data.image}`}
-                        >
-                          <img
-                            src={`http://localhost:5000/public/images/users/${data.image}`}
-                            className="object-cover cursor-pointer"
-                            alt=""
-                          />
-                        </PhotoView>
-                      </PhotoProvider>
-                      <PhotoProvider>
-                        <PhotoView
-                          src={`http://localhost:5000/public/images/users/${data.image}`}
-                        >
-                          <img
-                            src={`http://localhost:5000/public/images/users/${data.image}`}
-                            className="object-cover cursor-pointer"
-                            alt=""
-                          />
-                        </PhotoView>
-                      </PhotoProvider>
-                      <PhotoProvider>
-                        <PhotoView
-                          src={`http://localhost:5000/public/images/users/${data.image}`}
-                        >
-                          <img
-                            src={`http://localhost:5000/public/images/users/${data.image}`}
-                            className="object-cover cursor-pointer"
-                            alt=""
-                          />
-                        </PhotoView>
-                      </PhotoProvider>
-                      <PhotoProvider>
-                        <PhotoView
-                          src={`http://localhost:5000/public/images/users/${data.image}`}
-                        >
-                          <img
-                            src={`http://localhost:5000/public/images/users/${data.image}`}
-                            className="object-cover cursor-pointer"
-                            alt=""
-                          />
-                        </PhotoView>
-                      </PhotoProvider>
-                      <PhotoProvider>
-                        <PhotoView
-                          src={`http://localhost:5000/public/images/users/${data.image}`}
-                        >
-                          <img
-                            src={`http://localhost:5000/public/images/users/${data.image}`}
-                            className="object-cover cursor-pointer"
-                            alt=""
-                          />
-                        </PhotoView>
-                      </PhotoProvider>
-                      <PhotoProvider>
-                        <PhotoView
-                          src={`http://localhost:5000/public/images/users/${data.image}`}
-                        >
-                          <img
-                            src={`http://localhost:5000/public/images/users/${data.image}`}
-                            className="object-cover cursor-pointer"
-                            alt=""
-                          />
-                        </PhotoView>
-                      </PhotoProvider>
-                      <PhotoProvider>
-                        <PhotoView
-                          src={`http://localhost:5000/public/images/users/${data.image}`}
-                        >
-                          <img
-                            src={`http://localhost:5000/public/images/users/${data.image}`}
-                            className="object-cover cursor-pointer"
-                            alt=""
-                          />
-                        </PhotoView>
-                      </PhotoProvider>
-                      <PhotoProvider>
-                        <PhotoView
-                          src={`http://localhost:5000/public/images/users/${data.image}`}
-                        >
-                          <img
-                            src={`http://localhost:5000/public/images/users/${data.image}`}
-                            className="object-cover cursor-pointer"
-                            alt=""
-                          />
-                        </PhotoView>
-                      </PhotoProvider>
-                      <PhotoProvider>
-                        <PhotoView
-                          src={`http://localhost:5000/public/images/users/${data.image}`}
-                        >
-                          <img
-                            src={`http://localhost:5000/public/images/users/${data.image}`}
-                            className="object-cover cursor-pointer"
-                            alt=""
-                          />
-                        </PhotoView>
-                      </PhotoProvider>
+                      {messageData && messageData.length > 0 ? (
+                        messageData.map((message, i) => (
+                          <PhotoProvider key={i}>
+                            <PhotoView src={message.message.image}>
+                              <img
+                                src={message.message.image}
+                                className="object-cover cursor-pointer"
+                                alt=""
+                              />
+                            </PhotoView>
+                          </PhotoProvider>
+                        ))
+                      ) : (
+                        <p className="text-[var(--text-color)] font-bold text-center">
+                          No media available
+                        </p>
+                      )}
                     </div>
                   </div>
                 )}

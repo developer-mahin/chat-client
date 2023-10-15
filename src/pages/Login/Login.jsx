@@ -35,7 +35,7 @@ const Login = () => {
   }, [authenticate, navigate, token]);
 
   return (
-    <div className="h-[100vh] flex items-center justify-center px-4 lg:py-0 py-20 ">
+    <div className="h-[100vh] bg-[#1f2c32] flex items-center justify-center px-4 lg:py-0 py-20 ">
       <div className="lg:bg-[#00000017] bg-[#0000006c] lg:px-10 px-5 lg:py-14 py-7 shadow-md rounded-lg md:w-[600px] w-full">
         <div>
           <div className="flex items-center justify-center ]">

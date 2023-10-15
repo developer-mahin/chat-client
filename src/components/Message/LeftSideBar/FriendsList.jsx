@@ -109,11 +109,6 @@ const FriendsList = ({
           </div>
         ) : (
           <div>
-            {/* <img
-                    src={`http://localhost:5000/public/images/users/${friendInfo.image}`}
-                    className="w-[15px] h-[15px] rounded-full"
-                    alt=""
-                  /> */}
             <div className="w-[15px] h-[15px] rounded-full bg-[var(--message-icon-color)]"></div>
           </div>
         )}

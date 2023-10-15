@@ -298,10 +298,10 @@ const Message = () => {
   }, [messageLoading]);
 
   useEffect(() => {
-    if (messageSentSuccess || socketMessage) {
+    if (messageSentSuccess) {
       setTypingMessage(null);
     }
-  }, [messageSentSuccess, setTypingMessage]);
+  }, [messageSentSuccess]);
 
   const search = (e) => {
     const getFriendsClass = document.getElementsByClassName("hover_fd");
@@ -389,6 +389,7 @@ const Message = () => {
               className={` ${toggleRightSide ? "block col-span-4" : "hidden"}`}
             >
               <RightSideBar
+                messageData={messageData}
                 activeUsers={activeUsers}
                 currentFriend={currentFriend}
                 toggleRightSide={toggleRightSide}
